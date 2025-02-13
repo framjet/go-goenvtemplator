@@ -1,6 +1,6 @@
 # goenvtemplator
 
-A Docker image for rendering Go templates with environment variables based on [goenvtemplator](https://github.com/seznam/goenvtemplator)
+A Docker image for rendering Go templates with environment variables based on [goenvtemplator](https://github.com/aurimasniekis/goenvtemplator)
 
 ## Quick Start
 

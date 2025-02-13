@@ -73,7 +73,7 @@ clean:
 
 .PHONY: goenvtemplator
 goenvtemplator:
-	cd goenvtemplator && GOOS=$(TARGET_OS) GOARCH=$(TARGET_ARCH) $(ARM_COMMAND) go build $(GO_BUILD_TAGS) $(LDFLAGS) $(IMPORT_PATH)
+	cd goenvtemplator && GOOS=$(TARGET_OS) GOARCH=$(TARGET_ARCH) $(ARM_COMMAND) go build -mod=vendor $(GO_BUILD_TAGS) $(LDFLAGS) $(IMPORT_PATH)
 
 .PHONY: container
 container:

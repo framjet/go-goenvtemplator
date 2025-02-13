@@ -39,9 +39,10 @@ jobs:
           
           # Create archive for the binary
           if [ "${{ matrix.os }}" = "windows" ]; then
-            zip "goenvtemplator-${{ matrix.os }}-${{ matrix.arch }}.zip" ./goenvtemplator/goenvtemplator.exe
+            zip -j "goenvtemplator-${{ matrix.os }}-${{ matrix.arch }}.zip" ./goenvtemplator/goenvtemplator.exe
           else
-            tar czf "goenvtemplator-${{ matrix.os }}-${{ matrix.arch }}.tar.gz" ./goenvtemplator/goenvtemplator
+            tar -czf "goenvtemplator-${{ matrix.os }}-${{ matrix.arch }}.tar.gz" -C ./goenvtemplator goenvtemplator
+            zip -j "goenvtemplator-${{ matrix.os }}-${{ matrix.arch }}.zip" ./goenvtemplator/goenvtemplator
           fi
 
       - name: Upload Release Binary
