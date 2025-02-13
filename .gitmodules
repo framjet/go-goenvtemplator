@@ -1,0 +1,3 @@
+[submodule "goenvtemplator"]
+	path = goenvtemplator
+	url = git@github.com:seznam/goenvtemplator.git

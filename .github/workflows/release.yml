@@ -1,0 +1,52 @@
+name: Release Binaries
+
+on:
+  push:
+    tags:
+      - '[0-9][0-9][0-9][0-9].*'
+
+jobs:
+  releases:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - os: linux
+            arch: amd64
+          - os: linux
+            arch: arm64
+          - os: darwin
+            arch: amd64
+          - os: darwin
+            arch: arm64
+          - os: windows
+            arch: amd64
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: 'recursive'
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+
+      - name: Build Binary
+        run: |
+          make goenvtemplator TARGET_OS=${{ matrix.os }} TARGET_ARCH=${{ matrix.arch }}
+          
+          # Create archive for the binary
+          if [ "${{ matrix.os }}" = "windows" ]; then
+            zip "goenvtemplator-${{ matrix.os }}-${{ matrix.arch }}.zip" ./goenvtemplator/goenvtemplator.exe
+          else
+            tar czf "goenvtemplator-${{ matrix.os }}-${{ matrix.arch }}.tar.gz" ./goenvtemplator/goenvtemplator
+          fi
+
+      - name: Upload Release Binary
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            goenvtemplator-${{ matrix.os }}-${{ matrix.arch }}.*
