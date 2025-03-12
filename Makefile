@@ -9,7 +9,7 @@ VERSION_FLAGS := -X "main.buildVersion=$(VERSION)"
 BINARY_NAME := goenvtemplator
 
 LINK_FLAGS :=
-LDFLAGS := -ldflags='$(VERSION_FLAGS) $(LINK_FLAGS)'
+LDFLAGS := -ldflags='-w -s $(VERSION_FLAGS) $(LINK_FLAGS)'
 ifneq ($(GO_BUILD_TAGS),)
 	GO_BUILD_TAGS := -tags "$(GO_BUILD_TAGS)"
 endif
